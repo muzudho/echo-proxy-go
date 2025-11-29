@@ -7,8 +7,14 @@
 
 VSCode の 📄 `settings.json` ファイルを開き、以下の行を追加（抜粋）：  
 
+📄 `settings.json` 抜粋:  
+
 ```json
 {
+    "go.toolsEnvVars": {
+        "LANG": "ja_JP.UTF-8"
+    },
+
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
     "terminal.integrated.profiles.windows": {
         "Command Prompt": {
@@ -27,7 +33,7 @@ VSCode の 📄 `settings.json` ファイルを開き、以下の行を追加（
 * ［OK］ボタン・クリック。
 * PCを再起動。
 
-👆 これで、VSCode のターミナルが UTF-8 対応になるはず？  
+👆 これで、VSCode のターミナルが UTF-8 対応になるはず？ ならない。  
 
 VSCode のターミナルを開きなおす。  
 
