@@ -20,7 +20,7 @@ func main() {
 	pArgsMap["exe"] = fs1.String("exe", "", "Working directory path.")
 
 	// コマンドライン引数の解析
-	flag.Parse()
+	fs1.Parse(os.Args[1:])
 
 	// デバッグ出力
 	fmt.Printf("exe=%s\n", *pArgsMap["exe"])
