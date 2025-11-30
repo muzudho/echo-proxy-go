@@ -16,13 +16,13 @@ func main() {
 
 	pArgsMap := make(map[string]*string)
 
-	// コマンドライン引数の登録兼取得
-	//pExePath := flag.String("exe", "", "Working directory path.")
-	pArgsMap["exe"] = fs1.String("exe", "", "Working directory path.") // 上記と同じこと
-	// exePath := "C:/Users/むずでょ/go/src/github.com/muzudho/go-echo-next-char/go-echo-next-char.exe"
+	// コマンドライン引数を登録し、後でその値が入る変数へのポインターを取得
+	pArgsMap["exe"] = fs1.String("exe", "", "Working directory path.")
 
 	// コマンドライン引数の解析
 	flag.Parse()
+
+	// デバッグ出力
 	fmt.Printf("exe=%s\n", *pArgsMap["exe"])
 
 	// コマンドライン引数の確認
