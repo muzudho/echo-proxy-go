@@ -14,22 +14,25 @@ func main() {
 	// デフォルトインスタンスを取得（すでに初期化済み）
 	fs1 := flag.CommandLine // ← これでフラグセットをゲット！
 
+	pArgsMap := make(map[string]*string)
+
 	// コマンドライン引数の登録兼取得
-	//exePath := flag.String("exe", "", "Working directory path.")
-	exePath := fs1.String("exe", "", "Working directory path.") // 上記と同じこと
+	//pExePath := flag.String("exe", "", "Working directory path.")
+	pArgsMap["exe"] = fs1.String("exe", "", "Working directory path.") // 上記と同じこと
 	// exePath := "C:/Users/むずでょ/go/src/github.com/muzudho/go-echo-next-char/go-echo-next-char.exe"
 
 	// コマンドライン引数の解析
 	flag.Parse()
+	fmt.Printf("exe=%s\n", *pArgsMap["exe"])
 
 	// コマンドライン引数の確認
-	if *exePath == "" {
+	if *pArgsMap["exe"] == "" {
 		panic(fmt.Errorf("--exe <Executable file path>"))
 	}
 
 	parameters := strings.Split("", " ")
 
-	externalProcess := exec.Command(*exePath, parameters...) // 外部プロセスコマンド作成
+	externalProcess := exec.Command(*pArgsMap["exe"], parameters...) // 外部プロセスコマンド作成
 
 	stdin, err := externalProcess.StdinPipe() // 外部プロセス標準入力パイプ取得
 	if err != nil {
