@@ -7,20 +7,17 @@ import (
 	"io"
 	"os"
 	"os/exec"
-	"strings"
 )
 
 func main() {
-	// デフォルトインスタンスを取得（すでに初期化済み）
-	fs1 := flag.CommandLine // ← これでフラグセットをゲット！
-
-	pArgsMap := make(map[string]*string)
+	fs1 := flag.CommandLine              // ← これでコマンドラインに紐づいたフラグセットをゲット！
+	pArgsMap := make(map[string]*string) // コマンドライン引数名と、その値が入る変数へのポインターを紐づけるマップ
 
 	// コマンドライン引数を登録し、後でその値が入る変数へのポインターを取得
 	pArgsMap["exe"] = fs1.String("exe", "", "Working directory path.")
 
-	// コマンドライン引数の解析
-	fs1.Parse(os.Args[1:])
+	parameters := os.Args[1:] // コマンドライン引数をすべて取得
+	fs1.Parse(parameters)     // コマンドライン引数の解析
 
 	// デバッグ出力
 	fmt.Printf("exe=%s\n", *pArgsMap["exe"])
@@ -29,8 +26,6 @@ func main() {
 	if *pArgsMap["exe"] == "" {
 		panic(fmt.Errorf("--exe <Executable file path>"))
 	}
-
-	parameters := strings.Split("", " ")
 
 	externalProcess := exec.Command(*pArgsMap["exe"], parameters...) // 外部プロセスコマンド作成
 
