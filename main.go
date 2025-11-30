@@ -11,16 +11,22 @@ import (
 )
 
 func main() {
-	// コマンドライン引数登録
-	exePath := flag.String("exe", "", "Working directory path.")
-	// 解析
+	// デフォルトインスタンスを取得（すでに初期化済み）
+	fs1 := flag.CommandLine // ← これでフラグセットをゲット！
+
+	// コマンドライン引数の登録兼取得
+	//exePath := flag.String("exe", "", "Working directory path.")
+	exePath := fs1.String("exe", "", "Working directory path.") // 上記と同じこと
+	// exePath := "C:/Users/むずでょ/go/src/github.com/muzudho/go-echo-next-char/go-echo-next-char.exe"
+
+	// コマンドライン引数の解析
 	flag.Parse()
 
+	// コマンドライン引数の確認
 	if *exePath == "" {
 		panic(fmt.Errorf("--exe <Executable file path>"))
 	}
 
-	// exePath := "C:/Users/むずでょ/go/src/github.com/muzudho/go-echo-next-char/go-echo-next-char.exe"
 	parameters := strings.Split("", " ")
 
 	externalProcess := exec.Command(*exePath, parameters...) // 外部プロセスコマンド作成
