@@ -7,9 +7,14 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 func main() {
+	// コマンドラインを文字列として取得
+	fullCmdLine := strings.Join(os.Args, " ")
+	fmt.Printf("Full command line: [%s]\n", fullCmdLine)
+
 	fs1 := flag.CommandLine              // ← これでコマンドラインに紐づいたフラグセットをゲット！
 	pArgsMap := make(map[string]*string) // コマンドライン引数名と、その値が入る変数へのポインターを紐づけるマップ
 
