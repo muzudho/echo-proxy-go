@@ -5,7 +5,7 @@ chcp 65001 >nul
 
 echo 外部ドライブにexeファイル置いても実行権限無いし、`C:/MuzudhoWorks/echo-proxy-go` に `echo-proxy-go.exe` ファイルを作るぜ（＾～＾）...
 cd ..
-go build -o C:/MuzudhoWorks/echo-proxy-go
+go build -o C:/MuzudhoWorks/echo-proxy-go/echo-proxy-go.exe
 cd ./bin
 echo go build したぜ（＾～＾）！
 pause

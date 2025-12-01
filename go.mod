@@ -1,3 +1,3 @@
-module github.com/muzudho/go-echo-proxy
+module github.com/muzudho/echo-proxy-go
 
 go 1.15
