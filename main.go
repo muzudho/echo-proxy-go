@@ -11,24 +11,19 @@ import (
 )
 
 func main() {
-	// コマンドラインを文字列として取得
-	fullCmdLine := strings.Join(os.Args, " ")
+	fullCmdLine := strings.Join(os.Args, " ") // 1. コマンドラインを文字列として取得
 	fmt.Printf("Full command line: [%s]\n", fullCmdLine)
 
-	fs1 := flag.CommandLine              // ← これでコマンドラインに紐づいたフラグセットをゲット！
-	pArgsMap := make(map[string]*string) // コマンドライン引数名と、その値が入る変数へのポインターを紐づけるマップ
+	fs1 := flag.CommandLine // 2. コマンドラインに紐づいたフラグセットを取得
 
-	// コマンドライン引数を登録し、後でその値が入る変数へのポインターを取得
-	pArgsMap["exe"] = fs1.String("exe", "", "Working directory path.")
+	pArgsMap := make(map[string]*string)                               // 3. コマンドライン引数名と、その値が入る変数へのポインターを紐づけるマップ
+	pArgsMap["exe"] = fs1.String("exe", "", "Working directory path.") // 4. コマンドライン引数を登録し、後でその値が入る変数へのポインターを取得
 
-	parameters := os.Args[1:] // コマンドライン引数をすべて取得
-	fs1.Parse(parameters)     // コマンドライン引数の解析
+	parameters := os.Args[1:]                // 5. コマンドライン引数をすべて取得
+	fs1.Parse(parameters)                    // 6. コマンドライン引数の解析
+	fmt.Printf("exe=%s\n", *pArgsMap["exe"]) // ヌルを指していれば、空文字列になるだけ。問題ない。
 
-	// デバッグ出力
-	fmt.Printf("exe=%s\n", *pArgsMap["exe"])
-
-	// コマンドライン引数の確認
-	if *pArgsMap["exe"] == "" {
+	if *pArgsMap["exe"] == "" { // 7. （あれば）必須のコマンドライン引数の確認
 		panic(fmt.Errorf("--exe <Executable file path>"))
 	}
 
