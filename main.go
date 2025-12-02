@@ -25,6 +25,9 @@ func main() {
 		panic(fmt.Errorf("--exe <Executable file path>"))
 	}
 
+	// FIXME: ここの parameters は、外部プロセスに渡す引数として適切か？
+	//        例えば、--exe 自身や、その値が含まれているとまずい。
+	//        なので、parameters を再構築する必要があるかもしれない。
 	externalProcess := exec.Command(*pArgsMap["exe"], parameters...) // 外部プロセスコマンド作成
 
 	stdin, err := externalProcess.StdinPipe() // 外部プロセス標準入力パイプ取得
@@ -53,7 +56,10 @@ func main() {
 
 	go receiveStdin(stdin) // 外部プロセスの標準入力送信開始
 
+	fmt.Print("[main.go] Waiting for external process to finish...\n")
 	externalProcess.Wait()
+
+	fmt.Print("[main.go] process finished.\n")
 }
 
 func fromFilesetToPArgsMap(fs1 *flag.FlagSet, arguments []string) map[string]*string {
